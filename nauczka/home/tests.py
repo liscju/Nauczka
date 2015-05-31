@@ -1,6 +1,6 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
-from gettingstarted.home.views import *
+from nauczka.home.views import *
 
 class HomePageTest(TestCase):
 
