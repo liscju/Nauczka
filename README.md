@@ -15,6 +15,9 @@ Now download dependencies of application by:
 (in windows with .exe suffix)
 $ venv/Scripts/pip install -r requirements.txt --allow-all-external
 
+windows:
+venv\Scripts\pip.exe install -r requirements.txt --allow-all-external
+
 ## Database
 * Install postgresql(for windows 9.3 x32 for x64 there is
      some problems)
