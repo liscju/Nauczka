@@ -20,7 +20,6 @@ class MainSiteVisitorTest(unittest.TestCase):
 
         # He see that main site is named Nauczka
         assert 'Nauczka' in self.browser.title
-        self.fail("Zrob design jak jest w mockupie")
 
 if __name__ == '__main__':
     unittest.main(warnings='ignore')

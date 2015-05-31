@@ -40,3 +40,12 @@ host    all             all             ::1/128                 trust
 
 ## Run
 foreman start web -f Procfile.dev
+
+## Running Tests
+* venv\Scripts\python.exe manage.py test -v 2
+
+## Creating new app module
+* Run venv\Scripts\python.exe manage.py startapp {{app_name}}
+* Add {{app_name}} in settings.py in INSTALLED_APPS
+
+
