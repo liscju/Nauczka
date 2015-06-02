@@ -1,0 +1,54 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Nauczka</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}">
+
+    <!-- jQuery library -->
+    <script src="{% static "jquery/jquery.min.js" %}"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="{% static "bootstrap/js/bootstrap.min.js" %}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Nauczka</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Główna</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+                <form method="POST">
+                  <div class="form-group">
+                    <label for="course_name">Nazwa kursu</label>
+                    <input type="text" class="form-control" id="course_name" name="course_name" placeholder="Podaj nazwę kursu">
+                  </div>
+                  <div class="form-group">
+                    <label for="course_url">Adres URL kursu</label>
+                    <input type="text" class="form-control" id="course_url" name="course_url" placeholder="Podaj url kursu">
+                  </div>
+                  <button type="submit" id="save_course" class="btn btn-default">Zapisz</button>
+                  {% csrf_token %}
+                </form>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
