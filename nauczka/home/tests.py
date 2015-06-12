@@ -25,6 +25,23 @@ class HomePageTest(TestCase):
         courses = Course.objects.all()
         self.assertEqual("Apache Spark",courses[0].name)
 
+class CourseDetails(TestCase):
+
+    def test_get_course_details_handle_proper_template(self):
+        alg_course = Course.objects.create(name='Udacity - Algorithms',
+                                           url='www.udacity.com/algorithms')
+
+        response = self.client.get('/courses/1/')
+        self.assertTemplateUsed(response,'get_course_details.html')
+
+    def test_get_course_details_pass_proper_arguments(self):
+        alg_course = Course.objects.create(name='Udacity - Algorithms',
+                                           url='www.udacity.com/algorithms')
+
+        response = self.client.get('/courses/%(id)s/' % { "id" : alg_course.id} )
+        self.assertContains(response, 'Udacity - Algorithms')
+        self.assertContains(response, 'www.udacity.com/algorithms')
+
 class CourseTest(TestCase):
 
     def test_save_load_course(self):
@@ -34,4 +51,28 @@ class CourseTest(TestCase):
         courses = Course.objects.all()
 
         self.assertEqual("HTML5",courses[0].name)
+
+    def test_get_saved_course_id(self):
+        algo_course = Course.objects.create(name='Udacity - Algorithms',
+                                            url='www.udacity.com/algorithms')
+
+        self.assertEqual(algo_course.id,3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -41,7 +41,7 @@ class UserAddOnlineCourse(FunctionalTest):
 
         # User see in main page in course list his new course
         online_courses_names = self.browser.find_elements_by_class_name("online_course_name")
-        self.assertIn("1. HTML5",[course_name.text for course_name in online_courses_names])
+        self.assertIn("HTML5",[course_name.text for course_name in online_courses_names])
 
     def test_user_click_on_home_page_get_back_to_main_site(self):
         # User open Nauczka in website

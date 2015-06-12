@@ -11,7 +11,7 @@
             <table class="table table-striped">
                 {% for course in courses %}
                     <tr>
-                        <td class="online_course_name">{{forloop.counter}}. {{ course.name }}</td>
+                        <td>{{forloop.counter}}. <a class="online_course_name" href="/courses/{{ course.id }}/">{{ course.name }}</a></td>
                     </tr>
                 {% endfor %}
             </table>
