@@ -1,9 +1,9 @@
+from functional_tests.base import FunctionalTest
 __author__ = 'lee'
-
 from selenium import webdriver
-import unittest
 
-class MainSiteVisitorTest(unittest.TestCase):
+
+class MainSiteVisitorTest(FunctionalTest):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -16,10 +16,8 @@ class MainSiteVisitorTest(unittest.TestCase):
         # User heard about new cool site
         # to manage his course, so he goes to
         # the website
-        self.browser.get('http://localhost:5000')
+        self.browser.get(self.live_server_url)
 
         # He see that main site is named Nauczka
         assert 'Nauczka' in self.browser.title
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
