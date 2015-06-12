@@ -42,3 +42,22 @@ class UserAddOnlineCourse(FunctionalTest):
         # User see in main page in course list his new course
         online_courses_names = self.browser.find_elements_by_class_name("online_course_name")
         self.assertIn("1. HTML5",[course_name.text for course_name in online_courses_names])
+
+    def test_user_click_on_home_page_get_back_to_main_site(self):
+        # User open Nauczka in website
+        self.browser.get(self.live_server_url)
+
+        # User click on add course button
+        add_online_course_btn = self.browser.find_element_by_id("add_online_course")
+        add_online_course_btn.click()
+
+        # User is linked to site '/add_online_course'
+        self.assertEqual(self.browser.current_url,self.live_server_url + '/add_online_course')
+
+        # User click on site logo
+        site_banner = self.browser.find_element_by_id("site_logo")
+        site_banner.click()
+
+        # User is back in main site
+        self.assertEqual(self.browser.current_url,self.live_server_url + "/")
+
