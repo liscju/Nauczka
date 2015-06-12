@@ -1,1 +1,1 @@
-venv\Scripts\python.exe manage.py test -v 2
+venv\Scripts\python.exe manage.py test nauczka -v 2
