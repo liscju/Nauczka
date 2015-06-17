@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block  additional_libraries %}
+    <script src="/static/js/course_details_main.js"></script>
+{% endblock %}
+
 {% block main_content %}
     <div class="row">
         <h1 id="course_details_name">{{ course_name }}</h1>
@@ -7,4 +11,49 @@
     <div class="row">
         Course site: <a id="course_details_website" href="{{ course_site }}">{{ course_site }}</a>
     </div>
+    <br><br><br><br>
+    <div class="row">
+        Notatki
+        <img id="add_new_note" src="/static/img/add.png" width="26" height="26"
+             onclick="toggleAddNewNoteFormVisibility()"/>
+    </div>
+    <br>
+    <div id="add_notes_div" class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Dodaj notatkę</h3>
+            </div>
+            <div class="panel-body">
+                <form role="form" method="POST" action="/courses/{{ id }}/add_note">
+                    <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="Czas(w min)" id="new_note_minutes_spend" name="time_spent" type="text" autofocus="">
+                        </div>
+                        <div class="form-group">
+                             <textarea class="form-control custom-control" rows="3" style="resize:none" id="new_note_description" name="description" placeholder="Opis"></textarea>
+                        </div>
+                        <input type="submit" id="new_note_add" class="btn btn-sm btn-success" value="Dodaj">
+                        {% csrf_token %}
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <ul>
+            {% for note in notes %}
+                <li><span class="note-time-description">{{ note.description }}</span> <span class="note-time-spent">{{ note.time_spent }}</span></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+

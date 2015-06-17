@@ -12,5 +12,6 @@ urlpatterns = patterns('',
 
     url(r'^$', homeViews.home_page, name='home'),
     url(r'^add_online_course$', homeViews.add_online_course, name='add_online_course'),
-    url(r'^courses/(\d+)/$', homeViews.get_course_details, name='get_course_details')
+    url(r'^courses/(\d+)/$', homeViews.get_course_details, name='get_course_details'),
+    url(r'^courses/(\d+)/add_note$', homeViews.add_note_to_course, name='add_note_to_course'),
 )

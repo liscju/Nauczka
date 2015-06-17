@@ -1,7 +1,7 @@
 from django.core.urlresolvers import resolve
 from django.http.request import HttpRequest
 from django.test import TestCase
-from nauczka.home.models import Course
+from nauczka.home.models import Course, Note
 from nauczka.home.views import *
 
 class HomePageTest(TestCase):
@@ -31,7 +31,7 @@ class CourseDetails(TestCase):
         alg_course = Course.objects.create(name='Udacity - Algorithms',
                                            url='www.udacity.com/algorithms')
 
-        response = self.client.get('/courses/1/')
+        response = self.client.get('/courses/%d/' % (alg_course.id,) )
         self.assertTemplateUsed(response,'get_course_details.html')
 
     def test_get_course_details_pass_proper_arguments(self):
@@ -41,6 +41,17 @@ class CourseDetails(TestCase):
         response = self.client.get('/courses/%(id)s/' % { "id" : alg_course.id} )
         self.assertContains(response, 'Udacity - Algorithms')
         self.assertContains(response, 'www.udacity.com/algorithms')
+
+    def test_get_course_details_return_course_notes(self):
+        alg_course = Course.objects.create(name='Udacity - Algorithms',
+                                           url='www.udacity.com/algorithms')
+
+        Note.objects.create(time_spent=30,description="Done I Part",course=alg_course)
+
+        response = self.client.get('/courses/%(id)s/' % { "id" : alg_course.id} )
+        self.assertContains(response, "Done I Part")
+        self.assertContains(response, "30")
+
 
 class CourseTest(TestCase):
 
@@ -52,13 +63,52 @@ class CourseTest(TestCase):
 
         self.assertEqual("HTML5",courses[0].name)
 
-    def test_get_saved_course_id(self):
-        algo_course = Course.objects.create(name='Udacity - Algorithms',
-                                            url='www.udacity.com/algorithms')
+class NoteTest(TestCase):
 
-        self.assertEqual(algo_course.id,3)
+    def test_save_note(self):
+        course_ = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
+        note = Note(time_spent=30,description="Done I part",course=course_)
+        note.save()
 
+        loaded_note = Note.objects.first()
+        self.assertEqual(loaded_note.time_spent, 30)
+        self.assertEqual(loaded_note.description, "Done I part")
+        self.assertEqual(loaded_note.course, course_)
 
+    def test_load_all_notes_for_given_course(self):
+        course_ = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
+        note = Note(time_spent=30,description="Done I part",course=course_)
+        note.save()
+
+        course_notes = Note.objects.filter(course=course_)
+        self.assertEqual(course_notes[0].description, "Done I part")
+
+class AddCourseNote(TestCase):
+
+    def test_add_course_note_resolve_add_course_note_function(self):
+        found = resolve("/courses/%d/add_note" % (1,) )
+        self.assertEqual( found.func , add_note_to_course)
+
+    def test_add_course_note_added_note_to_db(self):
+        html5_course = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
+
+        self.client.post("/courses/%d/add_note" % (html5_course.id,) ,
+            { 'time_spent' : "30", 'description' : 'Done I Part'}
+        )
+
+        note = Note.objects.first()
+
+        self.assertEqual( note.time_spent , 30)
+        self.assertEqual( note.description, "Done I Part")
+
+    def test_add_course_note_redirects_to_course_details(self):
+        html5_course = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
+
+        res = self.client.post("/courses/%d/add_note" % (html5_course.id,) ,
+            { 'time_spent' : "30", 'description' : 'Done I Part'}
+        )
+
+        self.assertRedirects(res,"/courses/%d/" % ( html5_course.id,) )
 
 
 
