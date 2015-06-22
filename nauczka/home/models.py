@@ -4,6 +4,7 @@ from django.db import models
 class Course(models.Model):
     name = models.TextField()
     url = models.TextField()
+    description = models.TextField(default="")
 
 class Note(models.Model):
     course = models.ForeignKey("Course",default=None)

@@ -28,10 +28,12 @@ class UserAddOnlineCourse(FunctionalTest):
         # User typed name of the course and his url in input text
         course_name_input = self.browser.find_element_by_id("course_name")
         course_url_input = self.browser.find_element_by_id("course_url")
+        course_description_input = self.browser.find_element_by_id("course_description")
         save_button = self.browser.find_element_by_id("save_course")
 
         course_name_input.send_keys("HTML5")
         course_url_input.send_keys("https://courses.edx.org/courses/course-v1:W3Cx+W3C-HTML5+2015T3/info")
+        course_description_input.send_keys("Learn basic to the new html standard")
 
         # User clicked save button
         save_button.click()

@@ -11,6 +11,9 @@
     <div class="row">
         Course site: <a id="course_details_website" href="{{ course_site }}">{{ course_site }}</a>
     </div>
+    <div class="row">
+        Course description: <span id="course_details_description">{{ course_description }}</span>
+    </div>
     <br><br><br><br>
     <div class="row">
         Notatki
@@ -47,10 +50,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="row">
-                        <span class="note-time-spent">Czas: {{ note.time_spent }} w min</span>
+                        Czas: <span class="note-time-spent">{{ note.time_spent }}</span>w min
                     </div>
                     <div class="row">
-                        <span class="note-time-description">Opis: {{ note.description }}</span>
+                        Opis: <span class="note-time-description">{{ note.description }}</span>
                     </div>
                 </div>
             </div>

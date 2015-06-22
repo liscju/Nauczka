@@ -50,10 +50,12 @@ class UserCheckOnlineCourseDetails(FunctionalTest):
 
         course_name_input = self.browser.find_element_by_id("course_name")
         course_url_input = self.browser.find_element_by_id("course_url")
+        course_description_input = self.browser.find_element_by_id("course_description")
         save_button = self.browser.find_element_by_id("save_course")
 
         course_name_input.send_keys("Udacity - Advanced operating system")
         course_url_input.send_keys("www.udacity.com/advopsys")
+        course_description_input.send_keys("Advancing part of operating system")
         save_button.click()
 
         # User click on "Udacity - Advanced operating system"
@@ -65,8 +67,10 @@ class UserCheckOnlineCourseDetails(FunctionalTest):
         # on details page
         course_details_name = self.browser.find_element_by_id("course_details_name")
         course_details_website = self.browser.find_element_by_id("course_details_website")
+        course_details_description = self.browser.find_element_by_id("course_details_description")
         self.assertEqual(course_details_name.text , "Udacity - Advanced operating system")
         self.assertEqual(course_details_website.text, "www.udacity.com/advopsys")
+        self.assertEqual(course_details_description.text, "Advancing part of operating system")
 
 
 

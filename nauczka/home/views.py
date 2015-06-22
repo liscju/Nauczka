@@ -9,14 +9,16 @@ def home_page(request):
 
 def add_online_course(request):
     if request.method == 'POST':
-        Course.objects.create(name=request.POST['course_name'],url=request.POST['course_url'])
+        Course.objects.create(name=request.POST['course_name'],url=request.POST['course_url'],
+                              description=request.POST['course_description'])
         return redirect("/")
     return render(request,"add_online_course.html")
 
 def get_course_details(request,course_id):
     course = Course.objects.get(pk=course_id)
     notes = Note.objects.filter(course=course)
-    return render(request,"get_course_details.html", { "id": course.id,"course_name" : course.name, "course_site" : course.url, "notes": notes})
+    return render(request,"get_course_details.html", { "id": course.id,"course_name" : course.name,"course_site" : course.url,
+                                                       "course_description" : course.description,"notes": notes})
 
 def add_note_to_course(request,course_id):
     course = Course.objects.get(pk=course_id)
