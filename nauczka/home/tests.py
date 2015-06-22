@@ -96,13 +96,13 @@ class NoteTest(TestCase):
 class AddCourseNote(TestCase):
 
     def test_add_course_note_resolve_add_course_note_function(self):
-        found = resolve("/courses/%d/add_note" % (1,) )
+        found = resolve("/courses/%d/notes/add" % (1,) )
         self.assertEqual( found.func , add_note_to_course)
 
     def test_add_course_note_added_note_to_db(self):
         html5_course = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
 
-        self.client.post("/courses/%d/add_note" % (html5_course.id,) ,
+        self.client.post("/courses/%d/notes/add" % (html5_course.id,) ,
             { 'time_spent' : "30", 'description' : 'Done I Part'}
         )
 
@@ -114,7 +114,7 @@ class AddCourseNote(TestCase):
     def test_add_course_note_redirects_to_course_details(self):
         html5_course = Course.objects.create(name="HTML5",url="www.coursera.com/html5")
 
-        res = self.client.post("/courses/%d/add_note" % (html5_course.id,) ,
+        res = self.client.post("/courses/%d/notes/add" % (html5_course.id,) ,
             { 'time_spent' : "30", 'description' : 'Done I Part'}
         )
 
