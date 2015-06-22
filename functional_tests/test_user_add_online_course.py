@@ -23,7 +23,7 @@ class UserAddOnlineCourse(FunctionalTest):
         add_online_course_btn.click()
 
         # User is linked to site '/add_online_course'
-        self.assertEqual(self.browser.current_url,self.live_server_url + '/add_online_course')
+        self.assertEqual(self.browser.current_url,self.live_server_url + '/courses/add')
 
         # User typed name of the course and his url in input text
         course_name_input = self.browser.find_element_by_id("course_name")
@@ -54,7 +54,7 @@ class UserAddOnlineCourse(FunctionalTest):
         add_online_course_btn.click()
 
         # User is linked to site '/add_online_course'
-        self.assertEqual(self.browser.current_url,self.live_server_url + '/add_online_course')
+        self.assertEqual(self.browser.current_url,self.live_server_url + '/courses/add')
 
         # User click on site logo
         site_banner = self.browser.find_element_by_id("site_logo")

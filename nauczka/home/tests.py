@@ -11,7 +11,7 @@ class HomePageTest(TestCase):
         self.assertEqual(found.func, home_page)
 
     def test_add_online_course_resolves_to_add_online_course(self):
-        found = resolve('/add_online_course')
+        found = resolve('/courses/add')
         self.assertEqual(found.func, add_online_course)
 
     def test_add_online_course_save_given_course(self):
