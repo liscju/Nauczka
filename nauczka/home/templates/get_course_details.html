@@ -40,11 +40,21 @@
         </div>
     </div>
     <div class="row">
-        <ul>
-            {% for note in notes %}
-                <li><span class="note-time-description">{{ note.description }}</span> <span class="note-time-spent">{{ note.time_spent }}</span></li>
-            {% endfor %}
-        </ul>
+        {% for note in notes %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Notatka</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <span class="note-time-spent">Czas: {{ note.time_spent }} w min</span>
+                    </div>
+                    <div class="row">
+                        <span class="note-time-description">Opis: {{ note.description }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
